@@ -1,12 +1,10 @@
 package com.example.newsapp.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -16,6 +14,7 @@ import com.example.newsapp.adapter.NewsAdapter
 import com.example.newsapp.databinding.FragmentTopNewsBinding
 import com.example.newsapp.ui.viewmodels.NewsViewmodel
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.example.newsapp.Contains
 import com.example.newsapp.Contains.ARTICLE_ARGS_KEY
 import com.example.newsapp.data.remote.models.Article
 
@@ -42,7 +41,6 @@ class TopNewsFragment : Fragment() {
 
     private fun observerData() {
         viewmodel.isNetWorkConnected.observe(viewLifecycleOwner){
-            Log.e("tag", viewmodel.listTopNews.value.isNullOrEmpty().toString() +"$it")
             if(it && viewmodel.listTopNews.value.isNullOrEmpty()){
                 viewmodel.getTopHeadlinesNews()
             }
@@ -70,8 +68,12 @@ class TopNewsFragment : Fragment() {
         binding.rvTopNews.addItemDecoration(dividerItemDecoration)
     }
     private fun openWebView(article :Article){
-        val bundle = bundleOf(ARTICLE_ARGS_KEY to article)
-        findNavController().navigate(R.id.action_topNewsFragment_to_webViewFragment,bundle)
+        if(viewmodel.isNetWorkConnected.value!!) {
+            val bundle = bundleOf(Contains.ARTICLE_ARGS_KEY to article)
+            findNavController().navigate(R.id.action_topNewsFragment_to_webViewFragment,bundle)
+        } else {
+            viewmodel._message.value = requireActivity().getString(R.string.mess_internet_disconnected)
+        }
     }
     override fun onDestroy() {
         super.onDestroy()
