@@ -5,13 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentTopNewsBinding
+import com.example.newsapp.ui.viewmodels.NewsViewmodel
 
 
 class TopNewsFragment : Fragment() {
     private var _binding : FragmentTopNewsBinding? = null
     private val binding get() = _binding!!
+    private lateinit var viewmodel :NewsViewmodel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -19,6 +22,7 @@ class TopNewsFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentTopNewsBinding.inflate(inflater,container,false)
         val view = binding.root
+        viewmodel = ViewModelProvider(requireActivity())[NewsViewmodel::class.java]
         return view
     }
 
