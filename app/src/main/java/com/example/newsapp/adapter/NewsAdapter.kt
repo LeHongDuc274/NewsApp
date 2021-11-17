@@ -48,6 +48,7 @@ class NewsAdapter(var itemClick: ((Article) -> Unit)? = null) : RecyclerView.Ada
 
     fun setData(listNew : List<Article>){
         listNews = listNew.toMutableList()
+        notifyDataSetChanged()
     }
 
 }

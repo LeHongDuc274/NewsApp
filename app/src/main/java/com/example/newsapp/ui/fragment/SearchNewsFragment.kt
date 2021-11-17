@@ -5,16 +5,27 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.newsapp.Contains
+import com.example.newsapp.Contains.DELAY_TIME_SEARCH
 import com.example.newsapp.R
+import com.example.newsapp.adapter.NewsAdapter
+import com.example.newsapp.data.remote.models.Article
 import com.example.newsapp.databinding.FragmentSearchNewsBinding
 import com.example.newsapp.ui.viewmodels.NewsViewmodel
+import kotlinx.coroutines.*
 
 
 class SearchNewsFragment : Fragment() {
     private var _binding: FragmentSearchNewsBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewmodel: NewsViewmodel
+    private lateinit var adapter: NewsAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -23,8 +34,45 @@ class SearchNewsFragment : Fragment() {
         _binding = FragmentSearchNewsBinding.inflate(inflater, container, false)
         val view = binding.root
         viewmodel = ViewModelProvider(requireActivity())[NewsViewmodel::class.java]
+        initRecyclerView()
+        observerData()
+        setupSearchView()
         return view
     }
 
+    private fun setupSearchView() {
+        var job: Job? = null
+        binding.tvSearch.addTextChangedListener { editable ->
+            job?.cancel()
+            job = CoroutineScope(Dispatchers.Default).launch {
+                delay(DELAY_TIME_SEARCH)
+                if (editable != null && editable.toString().isNotEmpty()) {
+                    viewmodel.getSearchNews(editable.toString())
+                }
+            }
+        }
+    }
+    private fun openWebView(article : Article){
+        val bundle = bundleOf(Contains.ARTICLE_ARGS_KEY to article)
+        findNavController().navigate(R.id.action_topNewsFragment_to_webViewFragment,bundle)
+    }
+    private fun observerData() {
+        viewmodel.listSearchNews.observe(viewLifecycleOwner) {
+            adapter.setData(it)
+        }
+        viewmodel.isLoading.observe(viewLifecycleOwner) {
+            if (it == true) binding.progressCircular.visibility = View.VISIBLE
+            else binding.progressCircular.visibility = View.GONE
+        }
+    }
+
+    private fun initRecyclerView() {
+        adapter = NewsAdapter {
+            openWebView(it)
+        }
+        binding.rvSearchNews.adapter = adapter
+        binding.rvSearchNews.layoutManager =
+            LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+    }
 
 }
