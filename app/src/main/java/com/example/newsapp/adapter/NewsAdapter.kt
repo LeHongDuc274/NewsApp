@@ -81,7 +81,7 @@ class NewsAdapter(
 
     fun setData(listNew: List<Article>, isLastpage: Boolean = false) {
         listNews = listNew.toMutableList()
-        if (!isLastpage) listNews.add(null)
+        if (!isLastpage && listNews.isNotEmpty()) listNews.add(null)
         notifyDataSetChanged()
     }
 

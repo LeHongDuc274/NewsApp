@@ -26,6 +26,9 @@ class Repositories {
               response.body()?.let {
                   if(response.isSuccessful){
                       netWorkCallback.onSucces(it.articles,it.totalResults)
+//                      if(it.status == "error"){
+//                          netWorkCallback.onFailure("ererererer")
+//                      }
                   }
               }
             }
@@ -40,6 +43,9 @@ class Repositories {
                 response.body()?.let {
                     if(response.isSuccessful){
                         netWorkCallback.onSucces(it.articles,it.totalResults)
+//                        if(it.status == "error"){
+//                            netWorkCallback.onFailure("errrrrrrrrrorro")
+//                        }
                     }
                 }
             }

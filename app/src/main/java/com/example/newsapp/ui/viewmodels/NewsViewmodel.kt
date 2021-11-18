@@ -42,10 +42,7 @@ class NewsViewmodel(val app: Application) : AndroidViewModel(app) {
                 if (it.action == ConnectivityManager.CONNECTIVITY_ACTION) {
                     val state = Contains.checkNetWorkAvailable(app)
                     isNetWorkConnected.value = state
-                    _message.value =
-                        if (state) app.getString(R.string.mess_internet_connected) else app.getString(
-                            R.string.mess_internet_disconnected
-                        )
+                   if(!state) _message.value = "No internet"
                 }
             }
         }

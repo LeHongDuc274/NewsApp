@@ -14,7 +14,7 @@ import java.util.*
 object Contains {
 
     const val BASE_URL = "https://newsapi.org/"
-    const val MY_API_KEY = "2e3723c25cce412899f9854450097ec8"
+    const val MY_API_KEY = "d34d539fc45342d4b16957df2ef7c52f"
     const val DELAY_TIME_SEARCH = 200L
     const val ARTICLE_ARGS_KEY = "com.example.newsapp.articlekey"
     const val RAW_PATTERN = "yyyy-MM-dd'T'HH:mm:ss'Z'"
