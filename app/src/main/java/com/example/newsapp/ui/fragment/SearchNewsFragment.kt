@@ -49,7 +49,9 @@ class SearchNewsFragment : Fragment() {
             job = CoroutineScope(Dispatchers.Default).launch {
                 delay(DELAY_TIME_SEARCH)
                 if (editable != null && editable.toString().isNotEmpty()) {
-                    viewmodel.getSearchNews(editable.toString())
+                    viewmodel.resetNewQuery(editable.toString())
+                  //  delay(DELAY_TIME_SEARCH/2)
+                    viewmodel.getSearchNews()
                 }
             }
         }
@@ -74,12 +76,19 @@ class SearchNewsFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        adapter = NewsAdapter {
+        adapter = NewsAdapter( {
             openWebView(it)
+        })
+        adapter.setloadMoreClick {
+            loadMore()
         }
         binding.rvSearchNews.adapter = adapter
         binding.rvSearchNews.layoutManager =
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+    }
+
+    private fun loadMore() {
+        viewmodel.getSearchNews()
     }
 
 }

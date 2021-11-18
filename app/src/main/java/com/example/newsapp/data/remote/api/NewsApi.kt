@@ -12,13 +12,15 @@ interface NewsApi {
     fun getTopHeadlines(
         @Query("country") countryKey: String = "us",
         @Query("category") categoryKey: String = "business",
-        @Query("apiKey") apiKey:String = MY_API_KEY
+        @Query("apiKey") apiKey:String = MY_API_KEY,
+        @Query("page") page : Int = 1
     ): Call<NewsResponse>
 
     @GET("v2/everything")
     fun getSearchNews(
         @Query("q") query: String,
-        @Query("apiKey") apiKey:String = MY_API_KEY
+        @Query("apiKey") apiKey:String = MY_API_KEY,
+        @Query("page") page : Int = 1
     ): Call<NewsResponse>
 
 }

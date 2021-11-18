@@ -19,6 +19,9 @@ object Contains {
     const val ARTICLE_ARGS_KEY = "com.example.newsapp.articlekey"
     const val RAW_PATTERN = "yyyy-MM-dd'T'HH:mm:ss'Z'"
     const val TARGET_PATTERN = "EEE MMM dd hh:mm aa"
+    const val VIEWTYPE_LOADMORE = 1
+    const val VIEWTYPE_NORMAL = 2
+    const val PAGE_SIZE = 20
     fun checkNetWorkAvailable(context: Context): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

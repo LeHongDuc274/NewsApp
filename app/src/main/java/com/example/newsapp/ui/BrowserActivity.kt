@@ -92,7 +92,6 @@ class BrowserActivity : AppCompatActivity() {
         }
     }
 
-
     // back buttom envent
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK && binding.webView.canGoBack()) {

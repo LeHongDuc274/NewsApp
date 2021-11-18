@@ -20,12 +20,12 @@ class Repositories {
             return instance!!
         }
     }
-    fun getTopHeadlinesNews(netWorkCallback: NetWorkCallback<Article>){
-        RetrofitInstance.newsApi.getTopHeadlines().enqueue(object : Callback<NewsResponse>{
+    fun getTopHeadlinesNews(netWorkCallback: NetWorkCallback<Article>,page:Int){
+        RetrofitInstance.newsApi.getTopHeadlines(page = page).enqueue(object : Callback<NewsResponse>{
             override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
               response.body()?.let {
                   if(response.isSuccessful){
-                      netWorkCallback.onSucces(it.articles)
+                      netWorkCallback.onSucces(it.articles,it.totalResults)
                   }
               }
             }
@@ -34,12 +34,12 @@ class Repositories {
             }
         })
     }
-    fun getSearchNews(query : String,netWorkCallback: NetWorkCallback<Article>){
-        RetrofitInstance.newsApi.getSearchNews(query).enqueue(object : Callback<NewsResponse>{
+    fun getSearchNews(query : String,netWorkCallback: NetWorkCallback<Article>,page:Int){
+        RetrofitInstance.newsApi.getSearchNews(query = query,page = page).enqueue(object : Callback<NewsResponse>{
             override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
                 response.body()?.let {
                     if(response.isSuccessful){
-                        netWorkCallback.onSucces(it.articles)
+                        netWorkCallback.onSucces(it.articles,it.totalResults)
                     }
                 }
             }

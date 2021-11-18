@@ -10,6 +10,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.newsapp.Contains
+import com.example.newsapp.Contains.PAGE_SIZE
 import com.example.newsapp.R
 import com.example.newsapp.callback.NetWorkCallback
 import com.example.newsapp.data.Repositories
@@ -19,16 +20,22 @@ class NewsViewmodel(val app: Application) : AndroidViewModel(app) {
 
     var isNetWorkConnected = MutableLiveData<Boolean>(false)
     private val repositories = Repositories.getInstance()
+
     private var _isLoading = MutableLiveData<Boolean>(false)
     val isLoading: LiveData<Boolean> = _isLoading
     var _message = MutableLiveData<String>()
     val message: LiveData<String> = _message
-    private var _listTopNews = MutableLiveData<List<Article>>()
-    val listTopNews: LiveData<List<Article>> = _listTopNews
-    private var _listSearchNews = MutableLiveData<List<Article>>()
-    val listSearchNews: LiveData<List<Article>> = _listSearchNews
 
+    private var _listTopNews: MutableLiveData<MutableList<Article>> = MutableLiveData()
+    val listTopNews: LiveData<MutableList<Article>> = _listTopNews
+    private var _listSearchNews = MutableLiveData<MutableList<Article>>()
+    val listSearchNews: LiveData<MutableList<Article>> = _listSearchNews
 
+    var curTopNewsPage = 1
+    var curSearchNewPage = 1
+    var isLastPageTopNews = false
+    var isLastPageSearchNews = false
+    var newQuery :String = ""
     val broadcastInternet = object : BroadcastReceiver() {
         override fun onReceive(p0: Context?, p1: Intent?) {
             p1?.let {
@@ -64,38 +71,58 @@ class NewsViewmodel(val app: Application) : AndroidViewModel(app) {
     }
 
     fun getTopHeadlinesNews() {
-        _isLoading.value = true
-        repositories.getTopHeadlinesNews(object : NetWorkCallback<Article> {
-            override fun onSucces(data: List<Article>?) {
-                data?.let {
-                    _listTopNews.value = it
-                    _isLoading.value = false
-                }
-            }
-
-            override fun onFailure(message: String?) {
-                _message.value = message ?: app.getString(R.string.mess_error)
-                _isLoading.value = false
-            }
-        })
-
-    }
-
-    fun getSearchNews(query: String) {
-        isNetWorkConnected.value?.let {
-            _isLoading.postValue(true)
-            repositories.getSearchNews(query, object : NetWorkCallback<Article> {
-                override fun onSucces(data: List<Article>?) {
+        if (!isLastPageTopNews && isNetWorkConnected.value!!) {
+            _isLoading.value = true
+            repositories.getTopHeadlinesNews(object : NetWorkCallback<Article> {
+                override fun onSucces(data: List<Article>?, totalResults: Int?) {
+                    totalResults?.let {
+                        isLastPageTopNews = ((it / PAGE_SIZE) + 2 - curTopNewsPage) < 0
+                    }
                     data?.let {
-                        _listSearchNews.value = it
+                        val newList = it.toMutableList()
+                        val oldList = _listTopNews.value ?: mutableListOf()
+                        oldList.addAll(newList)
+                        _listTopNews.value = oldList
+                        _isLoading.value = false
                     }
                 }
 
                 override fun onFailure(message: String?) {
                     _message.value = message ?: app.getString(R.string.mess_error)
+                    _isLoading.value = false
                 }
-            })
+            }, curTopNewsPage)
+            curTopNewsPage++
+        }
+    }
+
+    fun getSearchNews() {
+        if (!isLastPageSearchNews && isNetWorkConnected.value!!) {
+            _isLoading.postValue(true)
+            repositories.getSearchNews(newQuery, object : NetWorkCallback<Article> {
+                override fun onSucces(data: List<Article>?, totalResults: Int?) {
+                    totalResults?.let {
+                        isLastPageSearchNews = ((it / PAGE_SIZE) + 2 - curSearchNewPage) < 0
+                    }
+                    data?.let {
+                        val newList = it.toMutableList()
+                        val oldList = _listSearchNews.value ?: mutableListOf()
+                        oldList.addAll(newList)
+                        _listSearchNews.value = oldList
+                    }
+                }
+                override fun onFailure(message: String?) {
+                    _message.value = message ?: app.getString(R.string.mess_error)
+                }
+            },curSearchNewPage)
+            curSearchNewPage++
             _isLoading.postValue(false)
         }
+    }
+    fun resetNewQuery(query : String){
+        newQuery = query
+        _listSearchNews.postValue(mutableListOf())
+        curSearchNewPage =1
+        isLastPageSearchNews = false
     }
 }
