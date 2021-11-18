@@ -61,20 +61,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_description" />
 
-    <TextView
-        android:id="@+id/tv_datetime"
+    <ImageView
+        android:id="@+id/tv_dot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_medium"
-        android:layout_marginStart="@dimen/margin_medium"
-        android:text="time"
-        android:textColor="@color/red"
-        android:textSize="@dimen/textsize_small"
-        android:textStyle="bold"
+        android:layout_marginStart="@dimen/margin_small"
+        android:src="@drawable/ic_baseline_mode_edit_outline_24"
         app:layout_constraintBottom_toBottomOf="@+id/tv_source"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/tv_source"
-        app:layout_constraintTop_toTopOf="@id/tv_source"
+        app:layout_constraintTop_toTopOf="@id/tv_source" />
+
+    <TextView
+        android:id="@+id/tv_datetime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_small"
+        android:text="time"
+        android:textColor="@color/teal_200"
+        android:textSize="@dimen/textsize_small"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_source"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/tv_dot"
+        app:layout_constraintTop_toTopOf="@+id/tv_source"
         app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

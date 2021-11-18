@@ -1,5 +1,7 @@
 package com.example.newsapp.adapter
 
+import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,10 +9,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.newsapp.Contains.convertDatetime
 import com.example.newsapp.R
 import com.example.newsapp.data.remote.models.Article
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 
-class NewsAdapter(var itemClick: ((Article) -> Unit)? = null) : RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
+class NewsAdapter(var itemClick: ((Article) -> Unit)? = null) :
+    RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
     private var listNews = mutableListOf<Article>()
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -25,7 +32,7 @@ class NewsAdapter(var itemClick: ((Article) -> Unit)? = null) : RecyclerView.Ada
             tvTitle.text = article.title
             tvDescription.text = article.description
             tvSource.text = article.source.name
-            tvDateTime.text = article.publishedAt
+            tvDateTime.text = convertDatetime(article.publishedAt)
             Glide.with(itemView).load(article.urlToImage).into(ivArticle)
 
             itemView.setOnClickListener {
@@ -46,7 +53,7 @@ class NewsAdapter(var itemClick: ((Article) -> Unit)? = null) : RecyclerView.Ada
 
     override fun getItemCount(): Int = listNews.size
 
-    fun setData(listNew : List<Article>){
+    fun setData(listNew: List<Article>) {
         listNews = listNew.toMutableList()
         notifyDataSetChanged()
     }

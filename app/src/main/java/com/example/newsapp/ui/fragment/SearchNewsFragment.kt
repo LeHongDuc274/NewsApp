@@ -55,7 +55,7 @@ class SearchNewsFragment : Fragment() {
     private fun openWebView(article : Article){
        if(viewmodel.isNetWorkConnected.value!!) {
             val bundle = bundleOf(Contains.ARTICLE_ARGS_KEY to article)
-            findNavController().navigate(R.id.action_topNewsFragment_to_webViewFragment, bundle)
+            findNavController().navigate(R.id.action_searchNewsFragment_to_webViewFragment, bundle)
         } else {
             viewmodel._message.value = requireActivity().getString(R.string.mess_internet_disconnected)
        }
