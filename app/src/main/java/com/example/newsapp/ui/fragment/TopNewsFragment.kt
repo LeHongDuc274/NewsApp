@@ -1,5 +1,6 @@
 package com.example.newsapp.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,6 +18,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.newsapp.Contains
 import com.example.newsapp.Contains.ARTICLE_ARGS_KEY
 import com.example.newsapp.data.remote.models.Article
+import com.example.newsapp.ui.BrowserActivity
+import com.example.newsapp.ui.BrowserActivity.Companion.URL
 
 
 class TopNewsFragment : Fragment() {
@@ -69,8 +72,9 @@ class TopNewsFragment : Fragment() {
     }
     private fun openWebView(article :Article){
         if(viewmodel.isNetWorkConnected.value!!) {
-            val bundle = bundleOf(Contains.ARTICLE_ARGS_KEY to article)
-            findNavController().navigate(R.id.action_topNewsFragment_to_webViewFragment,bundle)
+            val intent = Intent(requireActivity(),BrowserActivity::class.java)
+            intent.putExtra(URL,article.url)
+            startActivity(intent)
         } else {
             viewmodel._message.value = requireActivity().getString(R.string.mess_internet_disconnected)
         }

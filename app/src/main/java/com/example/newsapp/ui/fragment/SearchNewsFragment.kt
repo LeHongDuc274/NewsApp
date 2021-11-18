@@ -1,5 +1,6 @@
 package com.example.newsapp.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,6 +18,7 @@ import com.example.newsapp.R
 import com.example.newsapp.adapter.NewsAdapter
 import com.example.newsapp.data.remote.models.Article
 import com.example.newsapp.databinding.FragmentSearchNewsBinding
+import com.example.newsapp.ui.BrowserActivity
 import com.example.newsapp.ui.viewmodels.NewsViewmodel
 import kotlinx.coroutines.*
 
@@ -54,8 +56,9 @@ class SearchNewsFragment : Fragment() {
     }
     private fun openWebView(article : Article){
        if(viewmodel.isNetWorkConnected.value!!) {
-            val bundle = bundleOf(Contains.ARTICLE_ARGS_KEY to article)
-            findNavController().navigate(R.id.action_searchNewsFragment_to_webViewFragment, bundle)
+           val intent = Intent(requireActivity(), BrowserActivity::class.java)
+           intent.putExtra(BrowserActivity.URL,article.url)
+           startActivity(intent)
         } else {
             viewmodel._message.value = requireActivity().getString(R.string.mess_internet_disconnected)
        }
