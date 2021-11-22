@@ -40,7 +40,9 @@ class NewsAdapter(
                 tvDescription.text = article.description
                 tvSource.text = article.source.name
                 tvDateTime.text = convertDatetime(article.publishedAt)
-                Glide.with(itemView).load(article.urlToImage).into(ivArticle)
+                Glide.with(itemView).load(article.urlToImage)
+                    .placeholder(R.drawable.ic_baseline_image_24)
+                    .into(ivArticle)
 
                 itemView.setOnClickListener {
                     itemClick?.invoke(article)

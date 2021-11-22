@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Trainning/newsApp/app/src/main/res/drawable/ic_baseline_arrow_forward_24.xml" value="0.26614583333333336" />
         <entry key="..\:/Trainning/newsApp/app/src/main/res/drawable/ic_baseline_clear_24.xml" value="0.16510416666666666" />
+        <entry key="..\:/Trainning/newsApp/app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.2564814814814815" />
         <entry key="..\:/Trainning/newsApp/app/src/main/res/drawable/ic_baseline_mode_edit_outline_24.xml" value="0.2703125" />
         <entry key="..\:/Trainning/newsApp/app/src/main/res/drawable/ic_search_24px.xml" value="0.2703125" />
         <entry key="..\:/Trainning/newsApp/app/src/main/res/layout/activity_browser.xml" value="0.24010416666666667" />
@@ -11,7 +13,7 @@
         <entry key="..\:/Trainning/newsApp/app/src/main/res/layout/fragment_search_news.xml" value="0.25416666666666665" />
         <entry key="..\:/Trainning/newsApp/app/src/main/res/layout/fragment_top_news.xml" value="0.24010416666666667" />
         <entry key="..\:/Trainning/newsApp/app/src/main/res/layout/fragment_web_view.xml" value="0.2477355072463768" />
-        <entry key="..\:/Trainning/newsApp/app/src/main/res/layout/item_load_more.xml" value="0.13020833333333334" />
+        <entry key="..\:/Trainning/newsApp/app/src/main/res/layout/item_load_more.xml" value="0.264" />
         <entry key="..\:/Trainning/newsApp/app/src/main/res/layout/item_new.xml" value="0.4" />
         <entry key="..\:/Trainning/newsApp/app/src/main/res/menu/nav_menu.xml" value="0.25416666666666665" />
       </map>

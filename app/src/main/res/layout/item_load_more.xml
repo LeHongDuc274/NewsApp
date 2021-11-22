@@ -5,13 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
+
     <com.google.android.material.button.MaterialButton
-      android:id="@+id/btn_loadmore"
+        android:id="@+id/btn_loadmore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/purple_200"
+        android:drawableRight="@drawable/ic_baseline_arrow_forward_24"
         android:text="@string/load_more"
-        android:textSize="@dimen/textsize_large"
+        android:textAllCaps="false"
+        android:textSize="@dimen/textsize_small"
         app:cornerRadius="@dimen/margin_small"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
