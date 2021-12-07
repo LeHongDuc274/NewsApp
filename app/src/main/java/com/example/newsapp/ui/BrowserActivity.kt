@@ -1,6 +1,7 @@
 package com.example.newsapp.ui
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
@@ -102,16 +103,14 @@ class BrowserActivity : AppCompatActivity() {
         return super.onKeyDown(keyCode, event)
     }
     override fun onResume() {
-        if(viewModel.isBackGround.value == true){
+        val sharedPrefs =
+            this.getSharedPreferences("isBackBround", Context.MODE_PRIVATE) ?: null
+        val bool = sharedPrefs?.getBoolean("key_background", false)
+        if (bool== true) {
             val intent = Intent(this, LoginActivity::class.java)
             intent.putExtra(IS_BACKGROUND, true)
             startActivity(intent)
         }
         super.onResume()
-    }
-
-    override fun onStop() {
-        viewModel.isBackGround.value = !viewModel.isBackGround.value!!
-        super.onStop()
     }
 }

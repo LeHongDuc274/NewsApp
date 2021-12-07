@@ -1,5 +1,6 @@
 package com.example.newsapp.ui
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -49,10 +50,14 @@ class LoginActivity : AppCompatActivity() {
 
     private fun openMainActivity(isBackGround: Boolean) {
         if (isBackGround) {
+            val sharedPrefs =
+                this.getSharedPreferences("isBackBround", Context.MODE_PRIVATE) ?: null
+            val bool = sharedPrefs?.edit()
+            bool?.putBoolean("key_background", false)
+            bool?.apply()
             finish()
         } else {
             val intent = Intent(this, MainActivity::class.java)
-           // intent.putExtra("isBackGround", false)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
