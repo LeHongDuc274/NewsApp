@@ -24,6 +24,7 @@ object Contains {
     const val PAGE_SIZE = 20
     const val KEY_PREFS  = "pass code"
     const val KEY_GET_PASS = "key"
+    const val IS_BACKGROUND = "isBackGround"
     fun checkNetWorkAvailable(context: Context): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

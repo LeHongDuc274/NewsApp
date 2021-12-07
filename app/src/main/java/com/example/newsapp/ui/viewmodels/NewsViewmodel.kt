@@ -18,14 +18,14 @@ import com.example.newsapp.data.remote.models.Article
 
 class NewsViewmodel(val app: Application) : AndroidViewModel(app) {
 
+    val isInApp = MutableLiveData(false)
     var isNetWorkConnected = MutableLiveData<Boolean>(false)
     private val repositories = Repositories.getInstance()
-
     private var _isLoading = MutableLiveData<Boolean>(false)
     val isLoading: LiveData<Boolean> = _isLoading
     var _message = MutableLiveData<String>()
     val message: LiveData<String> = _message
-
+    var isBackGround = MutableLiveData(false)
     private var _listTopNews: MutableLiveData<MutableList<Article>> = MutableLiveData()
     val listTopNews: LiveData<MutableList<Article>> = _listTopNews
     private var _listSearchNews = MutableLiveData<MutableList<Article>>()

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.example.newsapp.Contains.IS_BACKGROUND
 
 import com.example.newsapp.databinding.ActivityLoginBinding
 import com.example.newsapp.ui.viewmodels.LoginViewModel
@@ -18,8 +19,9 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         viewmodel = ViewModelProvider(this)[LoginViewModel::class.java]
         setContentView(binding.root)
+        val isBackGround = intent.getBooleanExtra(IS_BACKGROUND, false)
         initView(viewmodel.getRefs())
-        initControl()
+        initControl(isBackGround)
         observeMessage()
     }
 
@@ -31,25 +33,30 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun initControl() {
+    private fun initControl(isBackGround: Boolean) {
         binding.btnLogin.setOnClickListener {
             val text = binding.edtPassword.text.toString()
-            if (viewmodel.checkPassCode(text)) openMainActivity()
+            if (viewmodel.checkPassCode(text)) openMainActivity(isBackGround)
         }
 
         binding.btnSave.setOnClickListener {
             val text = binding.edtPassword.text.toString()
             if (viewmodel.saveRefs(text)) {
-                openMainActivity()
+                openMainActivity(isBackGround)
             }
         }
     }
 
-    private fun openMainActivity() {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
+    private fun openMainActivity(isBackGround: Boolean) {
+        if (isBackGround) {
+            finish()
+        } else {
+            val intent = Intent(this, MainActivity::class.java)
+           // intent.putExtra("isBackGround", false)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
     }
 
     private fun initView(oldPass: String?) {
@@ -64,4 +71,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        finishAffinity()
+    }
 }

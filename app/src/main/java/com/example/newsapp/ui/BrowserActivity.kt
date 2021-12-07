@@ -1,19 +1,18 @@
 package com.example.newsapp.ui
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.example.newsapp.Contains.IS_BACKGROUND
 import com.example.newsapp.databinding.ActivityBrowserBinding
 import com.example.newsapp.ui.viewmodels.BrowserViewModel
 
@@ -101,5 +100,18 @@ class BrowserActivity : AppCompatActivity() {
             return true
         }
         return super.onKeyDown(keyCode, event)
+    }
+    override fun onResume() {
+        if(viewModel.isBackGround.value == true){
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.putExtra(IS_BACKGROUND, true)
+            startActivity(intent)
+        }
+        super.onResume()
+    }
+
+    override fun onStop() {
+        viewModel.isBackGround.value = !viewModel.isBackGround.value!!
+        super.onStop()
     }
 }

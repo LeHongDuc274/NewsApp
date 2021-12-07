@@ -5,4 +5,5 @@ import androidx.lifecycle.ViewModel
 
 class BrowserViewModel : ViewModel() {
     var currentUrl = MutableLiveData<String>("")
+    var isBackGround = MutableLiveData(false)
 }

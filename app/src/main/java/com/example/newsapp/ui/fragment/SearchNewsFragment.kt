@@ -6,13 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.newsapp.Contains
 import com.example.newsapp.Contains.DELAY_TIME_SEARCH
 import com.example.newsapp.R
 import com.example.newsapp.adapter.NewsAdapter
@@ -58,6 +54,7 @@ class SearchNewsFragment : Fragment() {
     }
 
     private fun openWebView(article: Article) {
+        viewmodel.isInApp.value = true
         if (viewmodel.isNetWorkConnected.value!!) {
             val intent = Intent(requireActivity(), BrowserActivity::class.java)
             intent.putExtra(BrowserActivity.URL, article.url)

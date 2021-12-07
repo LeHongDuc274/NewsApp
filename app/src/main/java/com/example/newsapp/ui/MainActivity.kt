@@ -1,19 +1,12 @@
 package com.example.newsapp.ui
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
-import android.net.ConnectivityManager
+import android.content.*
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.example.newsapp.Contains.checkNetWorkAvailable
+import com.example.newsapp.Contains.IS_BACKGROUND
 import com.example.newsapp.R
 import com.example.newsapp.databinding.ActivityMainBinding
 import com.example.newsapp.ui.viewmodels.NewsViewmodel
@@ -43,6 +36,22 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        viewmodel.isInApp.value = false
+        if (viewmodel.isBackGround.value == true) {
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.putExtra(IS_BACKGROUND, true)
+            startActivity(intent)
+        }
+        super.onResume()
+    }
+
+    override fun onStop() {
+        if (viewmodel.isInApp.value == false) {
+            viewmodel.isBackGround.value = !viewmodel.isBackGround.value!!
+        }
+        super.onStop()
+    }
 
     override fun onDestroy() {
         super.onDestroy()

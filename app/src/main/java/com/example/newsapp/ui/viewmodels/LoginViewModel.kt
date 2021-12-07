@@ -2,7 +2,6 @@ package com.example.newsapp.ui.viewmodels
 
 import android.app.Application
 import android.content.Context
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.newsapp.Contains.KEY_GET_PASS

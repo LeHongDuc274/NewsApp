@@ -42,6 +42,7 @@ class NewsAdapter(
                 tvDateTime.text = convertDatetime(article.publishedAt)
                 Glide.with(itemView).load(article.urlToImage)
                     .placeholder(R.drawable.ic_baseline_image_24)
+                    .error(R.drawable.ic_baseline_error_outline_24)
                     .into(ivArticle)
 
                 itemView.setOnClickListener {
