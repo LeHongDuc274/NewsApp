@@ -43,7 +43,7 @@ class BrowserActivity : AppCompatActivity() {
         binding.ivBack.setOnClickListener {
             finish()
         }
-        viewModel.currentUrl.observe(this){
+        viewModel.currentUrl.observe(this) {
             binding.tvUrl.text = it
         }
     }
@@ -63,7 +63,7 @@ class BrowserActivity : AppCompatActivity() {
                 request: WebResourceRequest?
             ): Boolean {
                 request?.let {
-                   viewModel.currentUrl.value = it.url.toString()
+                    viewModel.currentUrl.value = it.url.toString()
                 }
                 return super.shouldOverrideUrlLoading(view, request)
             }

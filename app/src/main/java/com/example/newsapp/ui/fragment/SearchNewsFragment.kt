@@ -50,21 +50,24 @@ class SearchNewsFragment : Fragment() {
                 delay(DELAY_TIME_SEARCH)
                 if (editable != null && editable.toString().isNotEmpty()) {
                     viewmodel.resetNewQuery(editable.toString())
-                  //  delay(DELAY_TIME_SEARCH/2)
+                    //  delay(DELAY_TIME_SEARCH/2)
                     viewmodel.getSearchNews()
                 }
             }
         }
     }
-    private fun openWebView(article : Article){
-       if(viewmodel.isNetWorkConnected.value!!) {
-           val intent = Intent(requireActivity(), BrowserActivity::class.java)
-           intent.putExtra(BrowserActivity.URL,article.url)
-           startActivity(intent)
+
+    private fun openWebView(article: Article) {
+        if (viewmodel.isNetWorkConnected.value!!) {
+            val intent = Intent(requireActivity(), BrowserActivity::class.java)
+            intent.putExtra(BrowserActivity.URL, article.url)
+            startActivity(intent)
         } else {
-            viewmodel._message.value = requireActivity().getString(R.string.mess_internet_disconnected)
-       }
+            viewmodel._message.value =
+                requireActivity().getString(R.string.mess_internet_disconnected)
+        }
     }
+
     private fun observerData() {
         viewmodel.listSearchNews.observe(viewLifecycleOwner) {
             adapter.setData(it)
@@ -76,7 +79,7 @@ class SearchNewsFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        adapter = NewsAdapter( {
+        adapter = NewsAdapter({
             openWebView(it)
         })
         adapter.setloadMoreClick {

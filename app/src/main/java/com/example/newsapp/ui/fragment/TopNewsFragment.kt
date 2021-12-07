@@ -46,7 +46,7 @@ class TopNewsFragment : Fragment() {
             }
         }
         viewmodel.listTopNews.observe(viewLifecycleOwner) {
-            adapter.setData(it,viewmodel.isLastPageTopNews)
+            adapter.setData(it, viewmodel.isLastPageTopNews)
         }
         viewmodel.isLoading.observe(viewLifecycleOwner) {
             if (it == true) binding.progressCircular.visibility = View.VISIBLE

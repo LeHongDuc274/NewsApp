@@ -20,38 +20,50 @@ class Repositories {
             return instance!!
         }
     }
-    fun getTopHeadlinesNews(netWorkCallback: NetWorkCallback<Article>,page:Int){
-        RetrofitInstance.newsApi.getTopHeadlines(page = page).enqueue(object : Callback<NewsResponse>{
-            override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
-              response.body()?.let {
-                  if(response.isSuccessful){
-                      netWorkCallback.onSucces(it.articles,it.totalResults)
+
+    fun getTopHeadlinesNews(netWorkCallback: NetWorkCallback<Article>, page: Int) {
+        RetrofitInstance.newsApi.getTopHeadlines(page = page)
+            .enqueue(object : Callback<NewsResponse> {
+                override fun onResponse(
+                    call: Call<NewsResponse>,
+                    response: Response<NewsResponse>
+                ) {
+                    response.body()?.let {
+                        if (response.isSuccessful) {
+                            netWorkCallback.onSucces(it.articles, it.totalResults)
 //                      if(it.status == "error"){
 //                          netWorkCallback.onFailure("ererererer")
 //                      }
-                  }
-              }
-            }
-            override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
-                netWorkCallback.onFailure(t.message.toString())
-            }
-        })
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
+                    netWorkCallback.onFailure(t.message.toString())
+                }
+            })
     }
-    fun getSearchNews(query : String,netWorkCallback: NetWorkCallback<Article>,page:Int){
-        RetrofitInstance.newsApi.getSearchNews(query = query,page = page).enqueue(object : Callback<NewsResponse>{
-            override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
-                response.body()?.let {
-                    if(response.isSuccessful){
-                        netWorkCallback.onSucces(it.articles,it.totalResults)
+
+    fun getSearchNews(query: String, netWorkCallback: NetWorkCallback<Article>, page: Int) {
+        RetrofitInstance.newsApi.getSearchNews(query = query, page = page)
+            .enqueue(object : Callback<NewsResponse> {
+                override fun onResponse(
+                    call: Call<NewsResponse>,
+                    response: Response<NewsResponse>
+                ) {
+                    response.body()?.let {
+                        if (response.isSuccessful) {
+                            netWorkCallback.onSucces(it.articles, it.totalResults)
 //                        if(it.status == "error"){
 //                            netWorkCallback.onFailure("errrrrrrrrrorro")
 //                        }
+                        }
                     }
                 }
-            }
-            override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
-                netWorkCallback.onFailure(t.message.toString())
-            }
-        })
+
+                override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
+                    netWorkCallback.onFailure(t.message.toString())
+                }
+            })
     }
 }

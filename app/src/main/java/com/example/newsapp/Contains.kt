@@ -22,6 +22,8 @@ object Contains {
     const val VIEWTYPE_LOADMORE = 1
     const val VIEWTYPE_NORMAL = 2
     const val PAGE_SIZE = 20
+    const val KEY_PREFS  = "pass code"
+    const val KEY_GET_PASS = "key"
     fun checkNetWorkAvailable(context: Context): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

@@ -6,4 +6,7 @@
     <dimen name="progressbar_size">50dp</dimen>
     <dimen name="margin_small">8dp</dimen>
     <dimen name="progress_bar_height">8dp</dimen>
+    <dimen name="radius_20">20dp</dimen>
+    <dimen name="dp12">12dp</dimen>
+    <dimen name="dp24">24dp</dimen>
 </resources>

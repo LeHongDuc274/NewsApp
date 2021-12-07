@@ -9,4 +9,11 @@
     <string name="mess_error">error</string>
     <string name="search_string">Search</string>
     <string name="load_more">More Articles </string>
+    <string name="pass_code">Pass code</string>
+    <string name="save">Save</string>
+    <string name="login">Login</string>
+    <string name="message_pass_mising">Bạn chưa có Pass Code,Vui lòng tạo Pass Code</string>
+    <string name="mess_pass_wrong">Nhập sai Pass, vui lòng nhập lại</string>
+    <string name="mess_pass_missing">Nhập đầy đủ pass</string>
+    <string name="mess_pass_save_success">Lưu Thành Công</string>
 </resources>

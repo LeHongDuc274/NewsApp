@@ -35,14 +35,14 @@ class NewsViewmodel(val app: Application) : AndroidViewModel(app) {
     var curSearchNewPage = 1
     var isLastPageTopNews = false
     var isLastPageSearchNews = false
-    var newQuery :String = ""
+    var newQuery: String = ""
     val broadcastInternet = object : BroadcastReceiver() {
         override fun onReceive(p0: Context?, p1: Intent?) {
             p1?.let {
                 if (it.action == ConnectivityManager.CONNECTIVITY_ACTION) {
                     val state = Contains.checkNetWorkAvailable(app)
                     isNetWorkConnected.value = state
-                   if(!state) _message.value = "No internet"
+                    if (!state) _message.value = "No internet"
                 }
             }
         }
@@ -108,18 +108,20 @@ class NewsViewmodel(val app: Application) : AndroidViewModel(app) {
                         _listSearchNews.value = oldList
                     }
                 }
+
                 override fun onFailure(message: String?) {
                     _message.value = message ?: app.getString(R.string.mess_error)
                 }
-            },curSearchNewPage)
+            }, curSearchNewPage)
             curSearchNewPage++
             _isLoading.postValue(false)
         }
     }
-    fun resetNewQuery(query : String){
+
+    fun resetNewQuery(query: String) {
         newQuery = query
         _listSearchNews.postValue(mutableListOf())
-        curSearchNewPage =1
+        curSearchNewPage = 1
         isLastPageSearchNews = false
     }
 }
