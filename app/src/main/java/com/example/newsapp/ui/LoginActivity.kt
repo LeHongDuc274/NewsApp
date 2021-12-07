@@ -24,9 +24,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun observeMessage() {
-        viewmodel.message.observe(this){mess->
+        viewmodel.message.observe(this) { mess ->
             mess?.let {
-                Toast.makeText(this,mess,Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, mess, Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -39,30 +39,29 @@ class LoginActivity : AppCompatActivity() {
 
         binding.btnSave.setOnClickListener {
             val text = binding.edtPassword.text.toString()
-            if(viewmodel.saveRefs(text)) {
+            if (viewmodel.saveRefs(text)) {
                 openMainActivity()
             }
         }
-}
-
-
-private fun openMainActivity() {
-    val intent = Intent(this, MainActivity::class.java)
-    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-    startActivity(intent)
-}
-
-private fun initView(oldPass: String?) {
-    if (oldPass == null) {
-        binding.btnLogin.visibility = View.GONE
-        binding.btnSave.visibility = View.VISIBLE
-        binding.tvMessage.visibility = View.VISIBLE
-    } else {
-        binding.btnLogin.visibility = View.VISIBLE
-        binding.btnSave.visibility = View.GONE
-        binding.tvMessage.visibility = View.GONE
     }
-}
+
+    private fun openMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+    }
+
+    private fun initView(oldPass: String?) {
+        if (oldPass == null) {
+            binding.btnLogin.visibility = View.GONE
+            binding.btnSave.visibility = View.VISIBLE
+            binding.tvMessage.visibility = View.VISIBLE
+        } else {
+            binding.btnLogin.visibility = View.VISIBLE
+            binding.btnSave.visibility = View.GONE
+            binding.tvMessage.visibility = View.GONE
+        }
+    }
 
 }
