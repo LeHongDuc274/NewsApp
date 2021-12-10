@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.newsapp.Contains.IS_BACKGROUND
+import com.example.newsapp.Contains.KEY_GET_BOOL
 
 import com.example.newsapp.databinding.ActivityLoginBinding
 import com.example.newsapp.ui.viewmodels.LoginViewModel
@@ -51,9 +52,9 @@ class LoginActivity : AppCompatActivity() {
     private fun openMainActivity(isBackGround: Boolean) {
         if (isBackGround) {
             val sharedPrefs =
-                this.getSharedPreferences("isBackBround", Context.MODE_PRIVATE) ?: null
+                this.getSharedPreferences(IS_BACKGROUND, Context.MODE_PRIVATE) ?: null
             val bool = sharedPrefs?.edit()
-            bool?.putBoolean("key_background", false)
+            bool?.putBoolean(KEY_GET_BOOL, false)
             bool?.apply()
             finish()
         } else {

@@ -25,6 +25,7 @@ object Contains {
     const val KEY_PREFS  = "pass code"
     const val KEY_GET_PASS = "key"
     const val IS_BACKGROUND = "isBackGround"
+    const val KEY_GET_BOOL = "key_background"
     fun checkNetWorkAvailable(context: Context): Boolean {
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

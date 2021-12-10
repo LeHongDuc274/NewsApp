@@ -6,23 +6,23 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
 import com.example.newsapp.Contains
+import com.example.newsapp.Contains.IS_BACKGROUND
+import com.example.newsapp.Contains.KEY_GET_BOOL
 
-class App : Application() {
+class App : Application(), DefaultLifecycleObserver {
+
     override fun onCreate() {
-        super.onCreate()
-        ProcessLifecycleOwner.get().lifecycle.addObserver(object : DefaultLifecycleObserver {
+        super<Application>.onCreate()
+        ProcessLifecycleOwner.get().lifecycle.addObserver(this)
+    }
 
-            override fun onStart(owner: LifecycleOwner) { // app moved to foreground
-            }
-
-            override fun onStop(owner: LifecycleOwner) { // app moved to background
-                val sharedPrefs =
-                    this@App.getSharedPreferences("isBackBround", Context.MODE_PRIVATE) ?: null
-                val bool = sharedPrefs?.edit()
-                bool?.putBoolean("key_background", true)
-                bool?.apply()
-            }
-        })
+    override fun onStop(owner: LifecycleOwner) {
+        val sharedPrefs =
+            this@App.getSharedPreferences(IS_BACKGROUND, Context.MODE_PRIVATE) ?: null
+        val bool = sharedPrefs?.edit()
+        bool?.putBoolean(KEY_GET_BOOL, true)
+        bool?.apply()
     }
 }
+
 
