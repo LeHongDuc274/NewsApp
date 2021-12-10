@@ -51,11 +51,6 @@ class LoginActivity : AppCompatActivity() {
 
     private fun openMainActivity(isBackGround: Boolean) {
         if (isBackGround) {
-            val sharedPrefs =
-                this.getSharedPreferences(IS_BACKGROUND, Context.MODE_PRIVATE) ?: null
-            val bool = sharedPrefs?.edit()
-            bool?.putBoolean(KEY_GET_BOOL, false)
-            bool?.apply()
             finish()
         } else {
             val intent = Intent(this, MainActivity::class.java)

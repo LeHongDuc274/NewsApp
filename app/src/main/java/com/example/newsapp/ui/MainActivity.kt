@@ -36,18 +36,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        val sharedPrefs =
-            this.getSharedPreferences("isBackBround", Context.MODE_PRIVATE) ?: null
-        val bool = sharedPrefs?.getBoolean("key_background", false)
-        if (bool== true) {
-            val intent = Intent(this, LoginActivity::class.java)
-            intent.putExtra(IS_BACKGROUND, true)
-            startActivity(intent)
-        }
-        super.onResume()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
