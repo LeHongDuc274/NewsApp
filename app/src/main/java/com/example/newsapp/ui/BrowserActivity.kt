@@ -1,21 +1,29 @@
 package com.example.newsapp.ui
 
 import android.annotation.SuppressLint
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.*
 import android.graphics.Bitmap
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.KeyEvent
-import android.view.View
+import android.view.*
 import android.webkit.WebChromeClient
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import com.example.newsapp.Contains.IS_BACKGROUND
+
 import com.example.newsapp.databinding.ActivityBrowserBinding
 import com.example.newsapp.ui.viewmodels.BrowserViewModel
+
+import android.widget.Toolbar
+import com.example.newsapp.R
+
 
 class BrowserActivity : AppCompatActivity() {
     companion object {
@@ -37,9 +45,20 @@ class BrowserActivity : AppCompatActivity() {
         initWebView()
         loadUrl()
         initControlToolbar()
+        obverseMessage()
+
+    }
+
+    private fun obverseMessage() {
+        viewModel.message.observe(this) { mess ->
+            Toast.makeText(this, mess, Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun initControlToolbar() {
+        val toolbar = binding.toolBarWebview
+        setSupportActionBar(toolbar)
+
         binding.ivBack.setOnClickListener {
             finish()
         }
@@ -101,5 +120,52 @@ class BrowserActivity : AppCompatActivity() {
             return true
         }
         return super.onKeyDown(keyCode, event)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.option_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.share -> {
+                shareCurrentLink()
+                true
+            }
+            R.id.copy_link -> {
+                copyLinkToClipBoard()
+                true
+            }
+            R.id.open_other_app -> {
+                openLinkOnBrowser()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun shareCurrentLink() {
+        viewModel.currentUrl.value?.let { link ->
+            val shareIntent = Intent.createChooser(Intent().apply {
+                action = ACTION_SEND
+                putExtra(EXTRA_TEXT,link)
+                putExtra(EXTRA_TITLE,"News")
+                type = "text/plain"
+            },null)
+            startActivity(shareIntent)
+        }
+    }
+
+    private fun openLinkOnBrowser() {
+        viewModel.currentUrl.value?.let { link ->
+            val intent = Intent(ACTION_VIEW, Uri.parse(link))
+            startActivity(intent)
+        }
+    }
+
+    private fun copyLinkToClipBoard() {
+        viewModel.copyLinkToClipBoard()
     }
 }
