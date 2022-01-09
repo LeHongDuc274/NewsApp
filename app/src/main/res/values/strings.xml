@@ -16,4 +16,7 @@
     <string name="mess_pass_wrong">Nhập sai Pass, vui lòng nhập lại</string>
     <string name="mess_pass_missing">Nhập đầy đủ pass</string>
     <string name="mess_pass_save_success">Lưu Thành Công</string>
+    <string name="share">Share</string>
+    <string name="open_other_app">Xem trong trình duyệt</string>
+    <string name="copy_link">Sao chép liên kết</string>
 </resources>

@@ -36,23 +36,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        viewmodel.isInApp.value = false
-        if (viewmodel.isBackGround.value == true) {
-            val intent = Intent(this, LoginActivity::class.java)
-            intent.putExtra(IS_BACKGROUND, true)
-            startActivity(intent)
-        }
-        super.onResume()
-    }
-
-    override fun onStop() {
-        if (viewmodel.isInApp.value == false) {
-            viewmodel.isBackGround.value = !viewmodel.isBackGround.value!!
-        }
-        super.onStop()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

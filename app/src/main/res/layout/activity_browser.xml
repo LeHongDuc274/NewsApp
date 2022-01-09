@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.BrowserActivity">
 
-    <Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar_webview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
                 android:maxLines="1"
                 android:textSize="@dimen/textsize_large" />
         </LinearLayout>
-    </Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <WebView
         android:id="@+id/web_view"

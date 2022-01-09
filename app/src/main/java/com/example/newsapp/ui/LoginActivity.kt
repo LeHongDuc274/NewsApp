@@ -1,5 +1,6 @@
 package com.example.newsapp.ui
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.newsapp.Contains.IS_BACKGROUND
+import com.example.newsapp.Contains.KEY_GET_BOOL
 
 import com.example.newsapp.databinding.ActivityLoginBinding
 import com.example.newsapp.ui.viewmodels.LoginViewModel
@@ -52,7 +54,6 @@ class LoginActivity : AppCompatActivity() {
             finish()
         } else {
             val intent = Intent(this, MainActivity::class.java)
-           // intent.putExtra("isBackGround", false)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)

@@ -54,7 +54,7 @@ class SearchNewsFragment : Fragment() {
     }
 
     private fun openWebView(article: Article) {
-        viewmodel.isInApp.value = true
+       // viewmodel.isInApp.value = true
         if (viewmodel.isNetWorkConnected.value!!) {
             val intent = Intent(requireActivity(), BrowserActivity::class.java)
             intent.putExtra(BrowserActivity.URL, article.url)
